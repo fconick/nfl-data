@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nfl-data"
+version = "0.1.0"
+description = "Ingest nflverse data, clean fixtures and scores, store in S3 and Supabase."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "boto3>=1.35",
+    "nflreadpy>=0.1",
+    "polars>=1.0",
+    "python-dotenv>=1.0",
+    "supabase>=2.0",
+    "tzdata>=2024.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+nfl-data = "nfl_data.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
