@@ -72,6 +72,25 @@ uv run python -m nfl_data refresh-games --skip-supabase --include-preseason
 
 Both commands are idempotent: S3 overwrites the season partition; Postgres upserts on `game_id`.
 
+## GitHub Actions
+
+[`.github/workflows/weekly-ingest.yml`](.github/workflows/weekly-ingest.yml) runs `python -m nfl_data ingest` every **Tuesday at 23:00 UTC** (7:00 PM Eastern in daylight time). You can also run it from the Actions tab (**Run workflow**).
+
+The repo must be on GitHub. Add these **Actions secrets** (Settings → Secrets and variables → Actions). Do not commit `.env`.
+
+| Secret | Example |
+| --- | --- |
+| `AWS_ACCESS_KEY_ID` | Backblaze key ID (write access) |
+| `AWS_SECRET_ACCESS_KEY` | Backblaze application key |
+| `AWS_REGION` | `us-east-005` |
+| `AWS_ENDPOINT_URL` | `https://s3.us-east-005.backblazeb2.com` |
+| `S3_BUCKET` | `nfl-bucket` |
+| `S3_PREFIX` | `nfl` |
+| `SUPABASE_URL` | `https://YOUR_PROJECT.supabase.co` |
+| `SUPABASE_SERVICE_ROLE_KEY` | service role key |
+
+GitHub pauses scheduled workflows if the repo is idle for 60 days.
+
 ## App queries
 
 Unplayed games have null scores and `status = 'scheduled'`. Completed games have both scores and `status = 'final'`.
