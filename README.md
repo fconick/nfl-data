@@ -74,7 +74,7 @@ Both commands are idempotent: S3 overwrites the season partition; Postgres upser
 
 ## GitHub Actions
 
-[`.github/workflows/weekly-ingest.yml`](.github/workflows/weekly-ingest.yml) runs `python -m nfl_data ingest` every **Tuesday at 23:00 UTC** (7:00 PM Eastern in daylight time). You can also run it from the Actions tab (**Run workflow**).
+[`.github/workflows/weekly-ingest.yml`](.github/workflows/weekly-ingest.yml) runs `python -m nfl_data ingest --seasons 2026` every **Tuesday at 23:00 UTC** (7:00 PM Eastern in daylight time). Change `2026` to `2027` when that season starts. You can also run it from the Actions tab (**Run workflow**).
 
 The repo must be on GitHub. Add these **Actions secrets** (Settings → Secrets and variables → Actions). Do not commit `.env`.
 
